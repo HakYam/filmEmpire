@@ -10,6 +10,7 @@ const store = configureStore({
     // Adding the middleware is necessary for RTK Query's automatic caching, invalidation, polling, and other features
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware().concat(tmdbApi.middleware),
+    serializableCheck: false,
 });
 
 export default store;

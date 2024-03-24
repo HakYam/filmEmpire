@@ -1,0 +1,37 @@
+.movie {
+    padding: 10px;
+}
+
+.title {
+    text-overflow: 'ellipsis';
+    width: 230px;
+    white-space: 'nowrap';
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.links {
+    align-items: center;
+    font-weight: bolder;
+    text-decoration: none;
+}
+
+.links:hover {
+    cursor: 'pointer';
+    
+}
+
+.image {
+    height: 300px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+
+}
+
+.image:hover {
+    cursor: 'pointer';
+    text-decoration: none;
+    transform: scale(1.05);
+}

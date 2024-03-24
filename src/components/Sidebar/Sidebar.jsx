@@ -5,6 +5,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useTheme } from '@mui/material/styles';
 import './styles.css';
 import { color } from '@mui/system';
+import { useGetGenreQuery } from '../../services/TMDB';
 
 
 const redLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
@@ -29,6 +30,9 @@ const categories = [{
 }];
 
 const Sidebar = ({ setMobileOpen }) => {
+    const { data, isFetching } = useGetGenreQuery();
+    console.log(data);
+
     const theme = useTheme();
 
 
@@ -36,7 +40,7 @@ const Sidebar = ({ setMobileOpen }) => {
         <>
             <Link to='/' className='imageLink'>
                 <img
-                    className='image'
+                    className='imageLogo'
                     src={theme.palette.mode === 'light' ? redLogo : blueLogo}
                     alt='Film Empire logo'
                 />
