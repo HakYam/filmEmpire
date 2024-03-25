@@ -1,11 +1,15 @@
 .movie {
     padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
-    text-overflow: 'ellipsis';
+    text-overflow: ellipsis;
     width: 230px;
-    white-space: 'nowrap';
+    /* Adjust width as needed */
+    white-space: nowrap;
     overflow: hidden;
     margin-top: 10px;
     margin-bottom: 0;
@@ -20,13 +24,16 @@
 
 .links:hover {
     cursor: 'pointer';
-    
+
 }
 
 .image {
-    height: 300px;
-    border-radius: 20px;
-    margin-bottom: 10px;
+    height: 300px !important;
+    border-radius: 15px;
+    margin-bottom: 5px;
+    margin-top: 25px;
+
+
 
 }
 

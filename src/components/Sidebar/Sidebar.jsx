@@ -6,32 +6,33 @@ import { useTheme } from '@mui/material/styles';
 import './styles.css';
 import { color } from '@mui/system';
 import { useGetGenreQuery } from '../../services/TMDB';
+import genreIcons from '../../assets/genres';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectGenreOrCategory } from '../../features/currentGenreOrCategory';
 
 
 const redLogo = 'https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png';
 const blueLogo = 'https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png';
 
-const demoCategories = [{
-    label: 'aa', value: 'popular'
-},
-{
-    label: 'bb', value: 'top_rated'
-}, {
-    label: 'vcc', value: 'upcomming'
-}];
 
-const categories = [{
+
+
+const demoCategories = [{
     label: 'popular', value: 'popular'
 },
 {
     label: 'top rated', value: 'top_rated'
 }, {
-    label: 'upcomming', value: 'upcomming'
+    label: 'up coming', value: 'upcoming'
 }];
 
+
+
 const Sidebar = ({ setMobileOpen }) => {
+    const { GenreIdOrCategoryName } = useSelector((state) => state.currentGenreOrCategory);
     const { data, isFetching } = useGetGenreQuery();
-    console.log(data);
+    const dispatch = useDispatch();
+
 
     const theme = useTheme();
 
@@ -55,14 +56,14 @@ const Sidebar = ({ setMobileOpen }) => {
                         underline="none"
                         color="inherit"
                     >
-                        <ListItem button onClick={() => { /* Handle onClick event */ }}>
-                            {/* <ListItemIcon>
+                        <ListItem button onClick={() => dispatch(selectGenreOrCategory(value))} >
+                            <ListItemIcon>
                                 <img
-                                    src={redLogo}
+                                    src={genreIcons[label.toLowerCase()]}
                                     height="30"
-                                    style={{ filter: 'invert(1)' }} 
+                                    style={{ filter: 'invert(0)' }}
                                 />
-                            </ListItemIcon> */}
+                            </ListItemIcon>
                             <ListItemText primary={label} />
                         </ListItem>
 
@@ -71,27 +72,33 @@ const Sidebar = ({ setMobileOpen }) => {
             </List>
             <Divider />
             <List>
-                <ListSubheader>Genre</ListSubheader>
-                {categories.map(({ label, value }) => (
-                    <Link
-                        key={value}
-                        to="/"
-                        underline="none"
-                        color="inherit"
-                    >
-                        <ListItem button onClick={() => { /* Handle onClick event */ }}>
-                            {/* <ListItemIcon>
-                                <img
-                                    src={redLogo}
-                                    height="30"
-                                    style={{ filter: 'invert(1)' }} 
-                                />
-                            </ListItemIcon> */}
-                            <ListItemText primary={label} />
-                        </ListItem>
+                <ListSubheader>Genres</ListSubheader>
+                {isFetching ? (
+                    <Box display={'flex'} justifyContent={'center'}>
+                        <CircularProgress >
+                        </CircularProgress>
+                    </Box>
 
-                    </Link>
-                ))}
+                ) :
+                    data.genres.map(({ name, id }) => (
+                        <Link
+                            key={name}
+                            to="/"
+                            underline="none"
+                            color="inherit"
+                        >
+                            <ListItem button onClick={() => dispatch(selectGenreOrCategory(id))}>
+                                <ListItemIcon>
+                                    <img
+                                        src={genreIcons[name.toLowerCase()]}
+                                        height="30"
+                                        style={{ filter: 'invert(0)' }}
+                                    />
+                                </ListItemIcon>
+                                <ListItemText primary={name} />
+                            </ListItem>
+                        </Link>
+                    ))}
             </List>
         </>
     )

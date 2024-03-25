@@ -23,10 +23,11 @@ export const tmdbApi = createApi({
 
         //  endpoint of Fetch popular movies
         getMovies: builder.query({
-            query: (page = 1) => `movie/popular?page=${page}`,
+            
+            query: ({ genreIdOrCategoryName , page}) => `movie/popular?page=${page}`,
         }),
     }),
 });
 
-export const { useGetGenreQuery, useGetMoviesQuery  } = tmdbApi;
+export const { useGetGenreQuery, useGetMoviesQuery,  } = tmdbApi;
 
